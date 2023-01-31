@@ -1,4 +1,11 @@
 <template>
+
+  <!--   4) Ajouter une validation au formulaire src/components/FormPlat.vue
+       - nom: obligatoire avec un maximum de 20 caractères.
+       - description: maximum de 155 caractères.
+       - La validation doit être déclenchée lorsque l'on clique sur Sauvegarder
+       -->
+
 <q-card class="form-card">
   <q-card-section>
     <div class="text-h6 heading">{{ action }} Plat</div>
