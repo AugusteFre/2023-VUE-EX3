@@ -2,7 +2,7 @@
 <q-card
   class="card">
   <q-img
-    :src="plat.image"
+    :src="plat.image ? plat.image : 'images/image-placeholder.png'"
     basic
     contain
   >
@@ -22,7 +22,9 @@
   </q-card-section>
 
   <q-card-section class="description">
-    {{ plat.description }}
+    <span v-if="plat.description">{{ plat.description }}</span>
+    <i v-else> Pas de description fournie </i>
+
   </q-card-section>
 
   <q-card-actions
@@ -44,7 +46,8 @@
     <form-plat
       action="modifier"
       :platAModifier="plat"
-      @fermer="afficherFormPlat = false"/>
+      :v-close-popup="afficherFormPlat"
+      @fermer="alert('Tache ajoutée !')"/>
   </q-dialog>
 </q-card>
 </template>
@@ -53,6 +56,7 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'plat',
   props: ['plat'],
   data () {
     return {

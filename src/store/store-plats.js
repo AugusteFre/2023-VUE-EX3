@@ -1,5 +1,4 @@
 // State : données du magasin
-
 const state = {
   plats: [
     {
@@ -39,14 +38,29 @@ Mutations : méthode qui manipulent les données
 Les mutations ne peuvent pas être asynchrones !!!
  */
 const mutations = {
+  /**
+   * Supprime le plat dont on a fourni l'id
+   * @param state le magasin de plat
+   * @param id l'id du plat a supprimer
+   */
   supprimerPlat (state, id) {
     // Filtre les données du tableau
     // et garde les tâches dont l'id est différent de celui à supprimer
     state.plats = state.plats.filter(el => el.id !== id)
   },
+  /**
+   * ajoute un plat au magasin
+   * @param state le magasin de plats
+   * @param plat le plat a ajouter
+   */
   ajouterPlat (state, plat) {
     state.plats.push(plat)
   },
+  /**
+   * Modifie un plat dont on a fourni l'id
+   * @param state le magasin de plats
+   * @param plat le plat a modifier
+   */
   modifierPlat (state, plat) {
     // Recherche la tâche et retourne sa position dans le tableau, son index
     const index = state.plats.findIndex(el => el.id === plat.id)

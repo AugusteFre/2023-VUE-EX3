@@ -22,10 +22,10 @@
 
   x6) Ajouter la possibilité de modifier un élément
 
-  7) Si aucune description n'est fournie pour un plat,
+  x7) Si aucune description n'est fournie pour un plat,
      afficher le texte "Aucune description fournie" en italique
 
-  8) Si aucune image n'est fournie, utiliser l'image images/image-placeholder.png
+  x8) Si aucune image n'est fournie, utiliser l'image images/image-placeholder.png
 
   -->
   <q-page class="q-pa-lg">
@@ -50,6 +50,7 @@
 
 <script>
 export default {
+  name: 'exercice',
   data () {
     return {
       afficherFormPlat: false

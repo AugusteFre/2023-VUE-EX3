@@ -39,7 +39,7 @@
         label="URL de l'image"
         class="col" />
       <q-img
-        :src="plat.image ? plat.image : 'images/image-placeholder.jpg'"
+        :src="plat.image ? plat.image : 'images/image-placeholder.png'"
         class="q-ml-sm"
         contain />
     </div>
@@ -75,12 +75,13 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'platForm',
   props: ['action', 'platAModifier'],
   data () {
     return {
       plat: {
         name: '',
-        description: 'Aucune description fournie',
+        description: '',
         note: 1,
         image: ''
       }
@@ -88,6 +89,10 @@ export default {
   },
   methods: {
     ...mapActions('plats', ['ajouterPlat', 'modifierPlat']),
+    /**
+     * formSubmit ()
+     * Permet de vérifier la validité des champs avant d'envoyer le formulaire
+     */
     formSubmit () {
       this.$refs.nom.validate()
       this.$refs.description.validate()
@@ -98,6 +103,10 @@ export default {
         this.sauverPlat(this.plat)
       }
     },
+    /**
+     * sauverPlat ()
+     * Enregistre le plat selon l'action demandée
+     */
     sauverPlat () {
       if (this.action === 'ajouter') {
         this.ajouterPlat(this.plat)
