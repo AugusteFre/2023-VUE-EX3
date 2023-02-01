@@ -1,4 +1,5 @@
 // State : données du magasin
+
 const state = {
   plats: [
     {
@@ -42,6 +43,19 @@ const mutations = {
     // Filtre les données du tableau
     // et garde les tâches dont l'id est différent de celui à supprimer
     state.plats = state.plats.filter(el => el.id !== id)
+  },
+  ajouterPlat (state, plat) {
+    state.plats.push(plat)
+  },
+  modifierPlat (state, plat) {
+    // Recherche la tâche et retourne sa position dans le tableau, son index
+    const index = state.plats.findIndex(el => el.id === plat.id)
+
+    // Si une tâche a été trouvée
+    if (index !== -1) {
+      // Modifie l'objet trouvé avec les nouvelles valeurs
+      Object.assign(state.plats[index], plat)
+    }
   }
 }
 /*
@@ -51,6 +65,21 @@ Elles peuvent être asynchrones !
 const actions = {
   supprimerPlat ({ commit }, id) {
     commit('supprimerPlat', id)
+  },
+  ajouterPlat ({ commit }, plat) {
+    let uId = 1
+    // Si le tableau contient des éléments
+    if (state.plats.length) {
+      // Récupère l'id MAX et lui ajoute 1
+      uId = Math.max(...state.plats.map(plat => plat.id)) + 1
+    }
+    // Ajoute le nouvel id au plat
+    plat.id = uId
+    commit('ajouterPlat', plat)
+  },
+  modifierPlat ({ commit }, payload) {
+    // Valide la mutation et y passe les données
+    commit('modifierPlat', payload)
   }
 }
 

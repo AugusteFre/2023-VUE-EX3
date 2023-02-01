@@ -1,11 +1,4 @@
 <template>
-
-  <!--   4) Ajouter une validation au formulaire src/components/FormPlat.vue
-       - nom: obligatoire avec un maximum de 20 caractères.
-       - description: maximum de 155 caractères.
-       - La validation doit être déclenchée lorsque l'on clique sur Sauvegarder
-       -->
-
 <q-card class="form-card">
   <q-card-section>
     <div class="text-h6 heading">{{ action }} Plat</div>
@@ -15,19 +8,28 @@
 
     <div class="row q-mb-md">
       <q-input
+        :rules="[
+          val => !!val || 'Champ requis',
+          val => val.length <= 20 || 'Maximum 20 caractères'
+        ]"
         filled
         v-model="plat.nom"
         label="Nom (Burger)"
-        class="col" />
+        class="col"
+        ref="nom" />
     </div>
 
     <div class="row q-mb-md">
       <q-input
+        :rules="[
+          val => val.length <= 155 || 'Maximum 155 caractères'
+        ]"
         filled
         v-model="plat.description"
         label="Description"
         type="textarea"
-        class="col" />
+        class="col"
+        ref="description" />
     </div>
 
     <div class="row q-mb-md">
@@ -37,7 +39,7 @@
         label="URL de l'image"
         class="col" />
       <q-img
-        :src="plat.image ? plat.image : 'statics/image-placeholder.png'"
+        :src="plat.image ? plat.image : 'images/image-placeholder.jpg'"
         class="q-ml-sm"
         contain />
     </div>
@@ -62,24 +64,51 @@
       color="grey"
       v-close-popup />
     <q-btn
+      @click="formSubmit"
       label="Sauver"
-      color="primary"
-      v-close-popup />
+      color="primary"/>
   </q-card-actions>
 </q-card>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  props: ['action'],
+  props: ['action', 'platAModifier'],
   data () {
     return {
       plat: {
         name: '',
-        description: '',
+        description: 'Aucune description fournie',
         note: 1,
         image: ''
       }
+    }
+  },
+  methods: {
+    ...mapActions('plats', ['ajouterPlat', 'modifierPlat']),
+    formSubmit () {
+      this.$refs.nom.validate()
+      this.$refs.description.validate()
+
+      // $refs correspond au ref du champ de saisie
+      if (!this.$refs.nom.hasError && !this.$refs.description.hasError) {
+        this.$emit('fermer') // jsp pk ça marche pas
+        this.sauverPlat(this.plat)
+      }
+    },
+    sauverPlat () {
+      if (this.action === 'ajouter') {
+        this.ajouterPlat(this.plat)
+      } else {
+        this.modifierPlat(this.plat)
+      }
+    }
+  },
+  mounted () {
+    if (this.action === 'modifier') {
+      this.plat = Object.assign({}, this.platAModifier)
     }
   }
 }
