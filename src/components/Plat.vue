@@ -44,7 +44,8 @@ Exercice 3 - Vuex & Formulaires
 
   <q-card-section class="description">
     <span v-if="plat.description">{{ plat.description }}</span>
-    <i v-else> Pas de description fournie </i>
+    <!-- TODO Utiliser DIV et helpers Quasar pour mise en forme texte -->
+    <div class="text-italic" v-else>Pas de description fournie</div>
 
   </q-card-section>
 
@@ -56,6 +57,7 @@ Exercice 3 - Vuex & Formulaires
       icon="edit"
       color="blue"
       flat>Modifier</q-btn>
+    <!-- TODO Paramètre inutile -->
     <q-btn @click="confirmerSuppression(plat.id)"
       icon="delete"
       color="red"
@@ -98,6 +100,8 @@ export default {
         cancel: true,
         persistent: true
       }).onOk(() => {
+        // TODO supprimer le paramètre id de confirmerSuppression
+        // TODO récupére l'id avec this.plat.id
         this.supprimerPlat(id)
       })
     }

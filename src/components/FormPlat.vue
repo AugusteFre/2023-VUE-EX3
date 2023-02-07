@@ -117,7 +117,8 @@ export default {
   },
   mounted () {
     if (this.action === 'modifier') {
-      this.plat = Object.assign({}, this.platAModifier)
+      // this.plat = Object.assign({}, this.platAModifier)
+      this.plat = { ...this.platAModifier } // TODO nouvelle syntaxe
     }
   }
 }

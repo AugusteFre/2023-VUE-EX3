@@ -41,7 +41,7 @@
 
       <q-dialog
         v-model="afficherFormPlat">
-        <form-plat action="ajouter" />
+        <form-plat action="ajouter" @fermer="afficherFormPlat = false" />
       </q-dialog>
 
     </div>
@@ -58,6 +58,7 @@ export default {
   },
   computed: {
     plats () {
+      // TODO utiliser les mapGetters
       return this.$store.getters['plats/getPlats']
     }
   },

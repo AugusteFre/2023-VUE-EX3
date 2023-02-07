@@ -43,6 +43,7 @@ const mutations = {
    * @param state le magasin de plat
    * @param id l'id du plat a supprimer
    */
+  // TODO renommer les mutations en majuscules supprimerPlat => SUPPRIMER_PLAT
   supprimerPlat (state, id) {
     // Filtre les données du tableau
     // et garde les tâches dont l'id est différent de celui à supprimer
@@ -77,6 +78,7 @@ Actions : méthodes du magasin qui font appel aux mutations
 Elles peuvent être asynchrones !
  */
 const actions = {
+  // TODO Ajouter les blocs de commentaires
   supprimerPlat ({ commit }, id) {
     commit('supprimerPlat', id)
   },
@@ -104,7 +106,12 @@ Sert à calculer, trier, filtrer ou formater les donneés
  */
 const getters = {
   getPlats (state) {
-    return state.plats
+    return [...state.plats].sort((a, b) => (a.nom.localeCompare(b.nom)))
+    // TODO toujours retourner un copie
+    // TODO trier et filter les données si nécessaire
+    // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    // https://usefulangle.com/post/227/javascript-sort-array-of-objects
+    // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
   }
 }
 
