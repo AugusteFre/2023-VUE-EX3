@@ -99,7 +99,7 @@ export default {
 
       // $refs correspond au ref du champ de saisie
       if (!this.$refs.nom.hasError && !this.$refs.description.hasError) {
-        this.$emit('fermer') // jsp pk ça marche pas
+        this.$emit('fermer')
         this.sauverPlat(this.plat)
       }
     },
